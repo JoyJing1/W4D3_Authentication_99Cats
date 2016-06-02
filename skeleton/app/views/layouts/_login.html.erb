@@ -1,0 +1,26 @@
+
+<% current_uri = request.env['PATH_INFO'] %>
+<% path = Rails.application.routes.recognize_path("#{current_uri}") %>
+<% controller = path[:controller]  %>
+<% submit_name = (controller == "users" ? "Create New User" : "Log In" )%>
+<% dest = (controller == "sessions" ? session_url : users_url) %>
+
+<form action="<%= dest %>" method="post">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+  <label for="username">Username: </label>
+  <input type="text"
+          name="user[username]"
+          value=""
+          placeholder="Enter a username."
+          id="username">
+  <br><br>
+
+  <label for="password">Password: </label>
+  <input type="password"
+          name="user[password]"
+          placeholder="Enter a password"
+          id="password">
+  <br><br>
+
+  <input type="submit" name="submit_button" value="<%= submit_name %>">
+</form>

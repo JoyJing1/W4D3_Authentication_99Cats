@@ -1,0 +1,28 @@
+<% current_uri = request.env['PATH_INFO'] %>
+<% login_page = (["/users/new", "/session/new", "/session", "/user"].include?(current_uri) ? true : false) %>
+
+<% if current_user %>
+  <% header = current_user.username %>
+  <% header_button = button_to("Logout", logout_session_url, method: :delete) %>
+<% else %>
+  <% header = "" %>
+  <% header_button = button_to("Login", new_session_url, method: :get)%>
+<% end %>
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>NinetyNineCatsDay1</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+  <h1><%= header %></h1>
+  <%= header_button unless login_page%>
+  <%= render partial: "layouts/errors" %>
+</head>
+<body>
+
+<%= yield %>
+
+</body>
+</html>
