@@ -14,4 +14,5 @@ NinetyNineCatsDay1::Application.routes.draw do
   get 'users', :to => 'users#new'
 
   root to: redirect("/cats")
+
 end
